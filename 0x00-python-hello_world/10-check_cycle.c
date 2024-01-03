@@ -1,44 +1,27 @@
 #include "lists.h"
-#include <stdlib.h>
-#include <string.h>
-
+#include <stdio.h>
 /**
- * _realloc - Reallocate a memory block
- * @ptr: The pointer to the previous memory block
- * @old_size: The size of the old memory block
- * @new_size: The size of the new memory block
- *
- * Return: The pointer to the new memory block otherwise NULL
+ * check_cycle - Checks if a singly linked list has a cycle in it
+ * @list: The singly linked list to check
+ * Return: 1 if has a cycle in it or 0 if not
  */
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
+int check_cycle(listint_t *list)
 {
-    void *new_ptr;
+	listint_t *turtle = list, *hare = list;
+	int found = 0;
 
-    if (new_size == old_size)
-        return ptr;
-
-    if (ptr != NULL)
-    {
-        if (new_size == 0)
-        {
-            free(ptr);
-            return NULL;
-        }
-
-        new_ptr = malloc(new_size);
-        if (new_ptr != NULL)
-        {
-            memcpy(new_ptr, ptr, old_size < new_size ? old_size : new_size);
-            free(ptr);
-            return new_ptr;
-        }
-
-        free(ptr);
-        return NULL;
-    }
-    else
-    {
-        new_ptr = malloc(new_size);
-        return new_ptr;
-    }
+	while ((turtle && hare) && hare->next)
+	{
+		turtle = turtle->next;
+		if (hare->next || hare->next->next)
+			hare = hare->next->next;
+		else
+			break;
+		if (turtle == hare)
+		{
+			found = 1;
+			break;
+		}
+	}
+	return (found);
 }
