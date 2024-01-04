@@ -1,18 +1,18 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
+import argparse
+
 if __name__ == "__main__":
-    import sys
-    i = len(sys.argv) - 1
+    parser = argparse.ArgumentParser(description="Prints the number of command line arguments and their values.")
+    parser.add_argument("args", nargs="*", help="List of command line arguments.")
+    args = parser.parse_args()
 
-    if i == 0:
-        print("{} arguments.".format(i))
-    elif i == 1:
-        print("{} argument:".format(i))
+    num_args = len(args.args)
+    if num_args == 0:
+        print(f"{num_args} arguments.")
+    elif num_args == 1:
+        print(f"{num_args} argument:")
     else:
-        print("{} arguments:".format(i))
+        print(f"{num_args} arguments:")
 
-    if i >= 1:
-        i = 0
-        for arg in sys.argv:
-            if i != 0:
-                print("{}: {}".format(i, arg))
-            i += 1
+    for i, arg in enumerate(args.args, start=1):
+        print(f"{i}: {arg}")
