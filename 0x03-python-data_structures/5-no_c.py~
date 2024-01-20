@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+def no_c(my_string):
+    for c in my-string:
+        new_string = my_string != "c"
+        if c != "c" and c != "C":
+            return new_string
